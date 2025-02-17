@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>V's PC Builder</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* General Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+
+        body {
+            background-color: #121212; /* Dark background for a gaming feel */
+            color: #f4f4f4;
+            line-height: 1.6;
+        }
+
+        /* Header */
+        header {
+            background: #111;
+            color: #f8f8f8;
+            padding: 20px 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            left: 0;
+            z-index: 10;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.7);
+            animation: fadeInHeader 2s ease-in-out;
+        }
+
+        header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+        }
+
+        header .logo h1 {
+            font-size: 2.5em;
+            font-family: 'Orbitron', sans-serif;
+            color: #f8b400;
+            animation: fadeInUp 2s ease-out;
+        }
+
+        header nav ul {
+            list-style: none;
+            display: flex;
+        }
+
+        header nav ul li {
+            margin-left: 20px;
+        }
+
+        header nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-size: 1.2em;
+            font-weight: bold;
+            letter-spacing: 1px;
+            transition: color 0.3s;
+        }
+
+        header nav ul li a:hover {
+            color: #f8b400;
+            text-shadow: 0 0 10px #f8b400;
+        }
+
+        /* Hero Section */
+        .hero {
+            position: relative;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: white;
+            animation: fadeInUp 3s ease-out;
+            overflow: hidden;
+        }
+
+        .hero .background-video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -1;
+        }
+
+        .hero-content h2 {
+            font-size: 4em;
+            margin-bottom: 20px;
+            color: #fff;
+            text-shadow: 0 0 20px #f8b400, 0 0 30px #f8b400;
+            animation: fadeInUp 1.5s ease-out;
+        }
+
+        .hero-content p {
+            font-size: 1.5em;
+            margin-bottom: 20px;
+            color: #e0e0e0;
+            animation: fadeInUp 2s ease-out;
+        }
+
+        .hero-content .btn {
+            padding: 15px 30px;
+            background: linear-gradient(45deg, #f8b400, #e5a800);
+            color: white;
+            text-transform: uppercase;
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: bold;
+            letter-spacing: 2px;
+            transition: background 0.3s, box-shadow 0.3s ease;
+            animation: fadeInUp 2.5s ease-out;
+            box-shadow: 0 0 10px rgba(248, 180, 0, 0.5);
+        }
+
+        .hero-content .btn:hover {
+            background: linear-gradient(45deg, #e5a800, #f8b400);
+            box-shadow: 0 0 20px rgba(248, 180, 0, 1);
+        }
+
+        /* Products Section */
+        .products {
+            padding: 60px 20px;
+            background: #1a1a1a;
+        }
+
+        .products h2 {
+            text-align: center;
+            margin-bottom: 40px;
+            color: #f8b400;
+            font-size: 2.5em;
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+            justify-items: center;
+        }
+
+        .product-card {
+            background: #222;
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.8);
+            transition: transform 0.3s ease-in-out;
+            animation: fadeInUp 2.5s ease-out;
+        }
+
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.8);
+        }
+
+        .product-card img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            transition: transform 0.3s ease;
+        }
+
+        .product-card img:hover {
+            transform: scale(1.1);
+        }
+
+        .product-card h3 {
+            margin: 15px 0;
+            font-size: 1.5em;
+            color: #f8b400;
+        }
+
+        .product-card p {
+            font-size: 1.2em;
+            color: #e0e0e0;
+        }
+
+        .product-card button {
+            padding: 10px 20px;
+            background: #333;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s;
+            margin: 10px 0;
+        }
+
+        .product-card button:hover {
+            background-color: #f8b400;
+            box-shadow: 0 0 15px #f8b400;
+        }
+
+        /* Modal for Specifications */
+        .specifications-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 10;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .specifications-content {
+            background-color: #222;
+            padding: 20px;
+            width: 60%;
+            max-width: 800px;
+            border-radius: 8px;
+            text-align: center;
+            color: white;
+        }
+
+        .specifications-content h3 {
+            margin-bottom: 20px;
+            color: #f8b400;
+        }
+
+        .specifications-content ul {
+            list-style: none;
+            margin-bottom: 20px;
+            padding: 0;
+        }
+
+        .specifications-content ul li {
+            font-size: 1.2em;
+            margin-bottom: 10px;
+        }
+
+        .close-specs {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 30px;
+            color: #aaa;
+            cursor: pointer;
+        }
+
+        /* Client Form Container (Hidden by default) */
+        .client-form-container {
+            display: none; /* Initially hidden */
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            justify-content: center;
+            align-items: center;
+            z-index: 20;
+        }
+
+        /* Client Form */
+        .client-form {
+            background-color: #222;
+            padding: 20px;
+            width: 60%;
+            max-width: 500px;
+            border-radius: 8px;
+            text-align: center;
+            color: white;
+        }
+
+        .client-form h2 {
+            color: #f8b400;
+            margin-bottom: 20px;
+        }
+
+        .client-form input,
+        .client-form textarea {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            background-color: #333;
+            color: white;
+        }
+
+        .client-form button {
+            padding: 10px 20px;
+            background: #f8b400;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .client-form button:hover {
+            background: #e5a800;
+        }
+
+        /* Close Button for Client Form */
+        .close-client-form {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 30px;
+            color: #aaa;
+            cursor: pointer;
+        }
+
+        /* Footer */
+        footer {
+            padding: 20px;
+            background: #111;
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        footer p {
+            margin: 0;
+            color: #e0e0e0;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Header -->
+    <header id="home">
+        <div class="container">
+            <div class="logo">
+                <h1>V's PC Builder</h1>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#products">Shop</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <!-- Background Video -->
+        <video autoplay loop muted class="background-video" id="background-video">
+            <source src="file:///C:/Users/1msccsc30/Downloads/vecteezy_rovigo-italy-22-april-2022-illuminated-gaming-pc-detail_41475938.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+
+        <div class="hero-content">
+            <h2>Welcome to V's PC Builder</h2>
+            <p>Custom PCs Built Just For You</p>
+            <a href="#products" class="btn">Build Your PC</a>
+        </div>
+    </section>
+
+<!-- Products Section -->
+<section id="products" class="products">
+    <div class="container">
+        <h2>Our Featured Builds</h2>
+        <div class="product-grid">
+            <!-- Gaming PC Product Card -->
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="https://w0.peakpx.com/wallpaper/294/129/HD-wallpaper-pc-gamer-game-plus-thumbnail.jpg" alt="Gaming PC">
+                    <!-- Eye Icon Overlay -->
+                    <div class="specification-eye" onclick="showSpecifications('gamingPC')">
+                        <img src="https://cdn-icons-png.flaticon.com/512/159/159604.png" alt="View Specs">
+                    </div>
+                </div>
+                <h3>Gaming PC</h3>
+                <p>₹171,000</p>
+                <button onclick="showClientForm()">Build Now</button>
+            </div>
+
+            <!-- Editing PC Product Card -->
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="https://5.imimg.com/data5/SELLER/Default/2023/5/309337001/DN/NZ/GS/158405824/video-editing-desktop-gaming-pc.jpg" alt="Editing PC">
+                    <!-- Eye Icon Overlay -->
+                    <div class="specification-eye" onclick="showSpecifications('editingPC')">
+                        <img src="https://cdn-icons-png.flaticon.com/512/159/159604.png" alt="View Specs">
+                    </div>
+                </div>
+                <h3>Editing PC</h3>
+                <p>₹66,000</p>
+                <button onclick="showClientForm()">Build Now</button>
+            </div>
+
+            <!-- Budget PC Product Card -->
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="https://cdn.mos.cms.futurecdn.net/LPoadgNSMtRBdSgZK72iHF-320-80.jpg" alt="Budget PC">
+                    <!-- Eye Icon Overlay -->
+                    <div class="specification-eye" onclick="showSpecifications('budgetPC')">
+                        <img src="https://cdn-icons-png.flaticon.com/512/159/159604.png" alt="View Specs">
+                    </div>
+                </div>
+                <h3>Budget PC</h3>
+                <p>₹19,000</p>
+                <button onclick="showClientForm()">Build Now</button>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Modal for Specifications -->
+<div id="specificationsModal" class="specifications-modal">
+    <div class="specifications-content">
+        <span class="close-specs" onclick="closeSpecifications()">&times;</span>
+        <h3>Specifications</h3>
+        <ul id="specificationsList">
+            <!-- Specifications will be dynamically inserted here -->
+        </ul>
+    </div>
+</div>
+
+<!-- Client Form Container -->
+<div id="clientFormContainer" class="client-form-container">
+    <div class="client-form">
+        <span class="close-client-form" onclick="closeClientForm()">&times;</span>
+        <h2>Enter Your Details</h2>
+        <form id="clientForm">
+            <input type="text" id="name" placeholder="Your Name" required>
+            <input type="email" id="email" placeholder="Your Email" required>
+            <textarea id="preferences" placeholder="Your Preferences" rows="4"></textarea>
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+</div>
+
+<!-- Footer -->
+<footer>
+    <p>© 2024 V's PC Builder. All rights reserved.</p>
+</footer>
+
+<!-- CSS Styling -->
+<style>
+    .product-grid {
+        display: flex;
+        gap: 20px;
+    }
+
+    .product-card {
+        position: relative;
+        width: 300px;
+        border: 1px solid #ddd;
+        padding: 10px;
+        border-radius: 8px;
+        text-align: center;
+        background-color: #121212;
+    }
+
+    .product-image {
+        position: relative;
+        width: 100%;
+        height: 200px;
+        overflow: hidden;
+        border-radius: 8px;
+    }
+
+    .product-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+  .specification-eye {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: white;
+    padding: 5px;
+    cursor: pointer;
+    border-radius: 50%; /* Makes the background circular */
+    width: 30px;  /* Set the width */
+    height: 30px; /* Set the height */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.specification-eye img {
+    width: 20px;
+    height: 20px;
+}
+
+.specification-eye:hover {
+    background-color: #ffd700; /* Slightly darker yellow for hover effect */
+}
+
+
+    .specifications-modal {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        justify-content: center;
+        align-items: center;
+    }
+
+    .specifications-content {
+        background-color: #121212;
+        padding: 20px;
+        border-radius: 8px;
+        width: 300px;
+        text-align: center;
+    }
+
+    .close-specs {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        cursor: pointer;
+        font-size: 20px;
+        color: #333;
+    }
+</style>
+
+<!-- JavaScript -->
+<script>
+    function showClientForm() {
+        document.getElementById('clientFormContainer').style.display = 'flex';
+    }
+
+    function closeClientForm() {
+        document.getElementById('clientFormContainer').style.display = 'none';
+    }
+
+    function showSpecifications(pcType) {
+        let specifications = [];
+        if (pcType === 'gamingPC') {
+            specifications = ['Intel Core i9-11900K', 'RTX 3080', '16GB RAM', '1TB SSD', '700W PSU'];
+        } else if (pcType === 'editingPC') {
+            specifications = ['Intel Core i7-10700', 'RTX 3060', '32GB RAM', '2TB HDD', '600W PSU'];
+        } else if (pcType === 'budgetPC') {
+            specifications = ['Intel Core i3-10100', 'GTX 1650', '8GB RAM', '500GB HDD', '450W PSU'];
+        }
+
+        let specsList = document.getElementById('specificationsList');
+        specsList.innerHTML = specifications.map(spec => `<li>${spec}</li>`).join('');
+        document.getElementById('specificationsModal').style.display = 'flex';
+    }
+
+    function closeSpecifications() {
+        document.getElementById('specificationsModal').style.display = 'none';
+    }
+</script>
+
+
+</body>
+
+</html>
