@@ -264,6 +264,18 @@
             align-items: center;
             z-index: 20;
         }
+        .background-image {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('file:///C:/Users/1msccsc30/Downloads/background-image.jpg'); /* Change this to your image path */
+    background-size: cover;
+    background-position: center;
+    z-index: -1;
+}
+
 
         /* Client Form */
         .client-form {
@@ -355,10 +367,8 @@
     <!-- Hero Section -->
     <section class="hero">
         <!-- Background Video -->
-        <video autoplay loop muted class="background-video" id="background-video">
-            <source src="file:///C:/Users/1msccsc30/Downloads/vecteezy_rovigo-italy-22-april-2022-illuminated-gaming-pc-detail_41475938.mp4" type="video/mp4">
-            Your browser does not support the video tag.
-        </video>
+       <div class="background-image"></div>
+
 
         <div class="hero-content">
             <h2>Welcome to V's PC Builder</h2>
